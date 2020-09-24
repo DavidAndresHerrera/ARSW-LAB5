@@ -79,7 +79,7 @@ public class CinemaServices {
     public ArrayList<Movie> getBy(String cinema, String date,String gender,  int seats){
         return cinemaFilter.filter(cinema,date,gender,seats,cps);
     }
-    public Movie getMovieByNameAndDate(String cinema,String date,String movie) throws CinemaException{
+    public CinemaFunction getMovieByNameAndDate(String cinema,String date,String movie) throws CinemaException{
         return cps.getMovieByCinemaAndDate(cinema,date,movie);
 
     }

@@ -1,7 +1,8 @@
 var apimock = (function () {
 
     var mockdata = [];
-    var seats = [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]];
+    var seats = [[true, true, false, true, true, false, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]];
+    var seats2 = [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]];
 
     mockdata["cinemaX"] =
         {
@@ -22,7 +23,7 @@ var apimock = (function () {
                         gender: "Action"
                     },
                     date: "2020-09-03 13:00",
-                    available:seats
+                    available:seats2
                 }
             ]
         }
@@ -65,7 +66,7 @@ var apimock = (function () {
             );
         },
         getFunctionsByMovieCinemaAndDate: function (date, cinema, movie2, callback){
-            window.alert(mockdata[cinema].functions.filter(movie => movie.date === date, movie.movie === movie2));
+
             var data = mockdata[cinema].functions.filter(
                 funct => funct.date.includes(date));
             var funcion = data.find(element => element.movie.name == movie2);

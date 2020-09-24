@@ -1,3 +1,4 @@
+var cliente = apiclient ;
 var app = (function () {
 
     var cine;
@@ -15,33 +16,36 @@ var app = (function () {
         }
         lista = [];
         var lista  = funs.map(function(fn){
-            return {movieName:fn.movie.name, gender:fn.movie.gender, date:fn.date}
+            return {movieName:fn.movie.name, gender:fn.movie.genre, date:fn.date}
         })
 
         var i = 0;
         lista.map(function(fn){
 
-            var fila = "<tr><td id=\"Name"+i+"\">" + fn.movieName + "</td><td id='Gender'>"+fn.gender+"</td><td id='Time'>" + fn.date + "</td><td><button type=\"button\" class=\"btn btn-success\" onclick=app.picture(document.getElementById(\"Name"+i+"\").value)>Seats</button></td></tr>";
+            var fila = "<tr><td id=\"Name"+i+"\">" + fn.movieName + "</td><td id='Gender'>"+fn.gender+"</td><td id='Time'>" + fn.date + "</td><td><button type=\"button\" class=\"btn btn-success\"  onclick=app.picture(document.getElementById(\"Name"+i+"\").innerHTML) >Seats</button></td> </tr>";
             $("#t01  tbody").append(fila);
             i+=1;
         })
     };
 
-    function draw(f){
-        var canvas = document.getElementById("myCanvas");
-        var lapiz = canvas.getContext("2d");
-        console.log(f);
-        lapiz.strokeStyle = 'lightgrey';
-        for (let i = 0; i < 7; i++) {
-            for (let j = 0; j < 12; j++) {
-                if (f[i][j] === true) {
-                    lapiz.fillStyle = "#FFC300";
-                } else {
-                    lapiz.fillStyle = "#900C3F";
+    function draw(fun){
+        var seats = fun.seats;
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.beginPath();
+        ctx.fillStyle = "#94c441";
+        ctx.fillRect(c.width*0.2, c.height*0.05, c.width*0.6, c.height*0.075);
+        for (var i = 0; i < seats[0].length; i++) {
+            for (var j = 0; j < seats.length; j++) {
+                ctx.fillStyle = "#c40a29";
+                if(seats[j][i]){
+                    ctx.fillStyle = "#217ad9"
                 }
-                lapiz.fillRect(j * 85, i * 85, 80, 80);
+                ctx.fillRect(i*30+20, j*40+100, 23, 23);
             }
         }
+
     }
 
 
@@ -56,22 +60,12 @@ var app = (function () {
         },
         getCinemas: function (cinema,fecha1) {
             app.setCinema(cinema);
-            apimock.getFunctionsByCinemaAndDate(fecha1,cinema, maperTabla);
+            cliente.getFunctionsByCinemaAndDate(fecha1,cinema, maperTabla);
             setCineandFecha(cinema,fecha1);
 
         },
         picture: function (movie){
-            $.getScript("js/apimock.js", function(){
-                apimock.getFunctionsByCinemaAndDate(fecha,cine,(funciones) => {
-                    for (const funcion of funciones) {
-                        if (funcion.movie.name === movie) {
-                            draw(funcion.available);
-                            break;
-                            //:3
-                        }
-                    }
-                })
-            });
+            cliente.getFunctionsByMovieCinemaAndDate(fecha,cine,movie,draw)
         }
 
     };

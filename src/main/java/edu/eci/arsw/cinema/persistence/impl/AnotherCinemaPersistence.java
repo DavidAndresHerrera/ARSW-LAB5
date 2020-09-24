@@ -4,6 +4,7 @@ import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.model.Movie;
 import edu.eci.arsw.cinema.persistence.CinemaException;
+import edu.eci.arsw.cinema.persistence.CinemaFilter;
 import edu.eci.arsw.cinema.persistence.CinemaPersistenceException;
 import edu.eci.arsw.cinema.persistence.CinemaPersitence;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -47,7 +48,7 @@ public class AnotherCinemaPersistence implements CinemaPersitence {
     }
 
     @Override
-    public Movie getMovieByCinemaAndDate(String cinema, String date, String movie) {
+    public CinemaFunction getMovieByCinemaAndDate(String cinema, String date, String movie) {
         return null;
     }
 
