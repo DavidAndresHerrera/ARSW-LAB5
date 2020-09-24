@@ -1,8 +1,9 @@
 var apimock = (function () {
 
     var mockdata = [];
+    var seats = [[true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true], [true, true, true, true, true, true, true, true, true, true, true, true]];
 
-    mockdata["cinemaX"] = [
+    mockdata["cinemaX"] =
         {
             functions: [
                 {
@@ -10,7 +11,8 @@ var apimock = (function () {
                         name: "Capitana Marvel",
                         gender: "Action"
                     },
-                    date: "2020-09-03 12:00"
+                    date: "2020-09-03 13:00",
+                    available: seats
                 }
 
                 ,
@@ -19,11 +21,12 @@ var apimock = (function () {
                         name: "Cars 3",
                         gender: "Action"
                     },
-                    date: "2020-09-03 13:00"
+                    date: "2020-09-03 13:00",
+                    available:seats
                 }
             ]
         }
-    ]
+
 
     mockdata['Fontanar'] = [
         {
@@ -33,14 +36,16 @@ var apimock = (function () {
                         name: "Acuaman",
                         gender: "Action"
                     },
-                    date: "2020-10-03 09:00"
+                    date: "2020-10-03 09:00",
+                    seats: seats
                 },
                 {
                     movie: {
                         name: "El conjuro",
                         gender: "Horror"
                     },
-                    date: "2020-10-04 14:00"
+                    date: "2020-10-04 14:00",
+                    seats: seats
                 }
             ]
         }
@@ -53,11 +58,22 @@ var apimock = (function () {
         },
 
         getFunctionsByCinemaAndDate: function (date, cinema, callback) {
-            cinema = mockdata[cinema].find(function (cinema) {
-                return cinema.functions.date == date
-            });
-            callback(null, cinema)
+            callback(
+                mockdata[cinema].functions.filter(
+                    movie => movie.date === date
+                )
+            );
+        },
+        getFunctionsByMovieCinemaAndDate: function (date, cinema, movie2, callback){
+            window.alert(mockdata[cinema].functions.filter(movie => movie.date === date, movie.movie === movie2));
+            var data = mockdata[cinema].functions.filter(
+                funct => funct.date.includes(date));
+            var funcion = data.find(element => element.movie.name == movie2);
+            callback(funcion);
+
+
         }
+
     }
 
 })();
